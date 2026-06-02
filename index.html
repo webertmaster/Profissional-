@@ -4,38 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alô Natal - Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f6; color: #333; display: flex; justify-content: center; }
+        :root {
+            --primary: #1a1a2e;
+            --primary-light: #16213e;
+            --accent: #0f3460;
+            --gold: #ffd700;
+            --gold-dark: #ffc107;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
         
-        .app-container { width: 100%; max-width: 400px; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .app-container { width: 100%; max-width: 430px; background: var(--bg); min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
         
-        .header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 30px 20px 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .header-info h1 { font-size: 20px; color: #ffc107; margin-bottom: 5px; }
-        .header-info p { font-size: 14px; font-weight: 300; }
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 40px 24px 30px; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%); animation: headerGlow 4s ease-in-out infinite; }
+        @keyframes headerGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10%, -10%); } }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+        .header-info h1 { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
+        .header-info .categoria { font-size: 12px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+        .profile-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 25px rgba(255,215,0,0.3); border: 2px solid rgba(255,255,255,0.3); }
+        .header-stats { display: flex; gap: 16px; margin-top: 20px; position: relative; z-index: 1; }
+        .header-stat { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); flex: 1; text-align: center; }
+        .header-stat p { font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .header-stat h3 { font-size: 20px; font-weight: 800; color: var(--gold); }
         
-        /* Painel de Carteira */
-        .wallet-card { background: white; margin: -15px 20px 20px; border-radius: 15px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; border: 1px solid #e0e0e0; }
-        .wallet-card p { font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-        .wallet-card h2 { font-size: 32px; color: #005b96; margin: 10px 0; }
-        .wallet-card span { font-size: 16px; color: #888; font-weight: normal; }
-        .btn-recarregar { background-color: #e65100; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: 10px; }
+        .wallet-section { margin: -20px 16px 20px; position: relative; z-index: 10; }
+        .wallet-card { background: linear-gradient(135deg, #ffffff, #f8fafc); border-radius: 20px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.5); position: relative; overflow: hidden; }
+        .wallet-card::after { content: ''; position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%); border-radius: 50%; }
+        .wallet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .wallet-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .wallet-badge { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+        .wallet-balance { font-size: 42px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
+        .wallet-balance span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
+        .wallet-subtext { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+        .wallet-actions { display: flex; gap: 8px; }
+        .btn-wallet { flex: 1; padding: 14px; border: none; border-radius: 14px; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-wallet:hover { transform: translateY(-2px); }
+        .btn-recarregar { background: linear-gradient(135deg, #e65100, #ff6d00); color: white; box-shadow: 0 8px 20px rgba(230,81,0,0.3); }
+        .btn-planos { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--gold); box-shadow: 0 8px 20px rgba(26,26,46,0.3); }
         
-        .section-title { padding: 0 20px; font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold; }
+        .nav-menu { display: flex; gap: 4px; margin: 0 16px 20px; background: white; border-radius: 16px; padding: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-item { flex: 1; padding: 12px 8px; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; font-size: 10px; font-weight: 600; color: var(--text-muted); border: none; background: transparent; }
+        .nav-item i { font-size: 16px; display: block; margin-bottom: 4px; }
+        .nav-item.active { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--gold); box-shadow: 0 4px 12px rgba(26,26,46,0.3); }
         
-        /* Feed de Vagas */
-        .job-list { padding: 0 20px; display: flex; flex-direction: column; gap: 15px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; margin-bottom: 16px; }
+        .section-title { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .section-badge { background: var(--danger); color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
         
-        .job-card { background: white; border: 2px solid #eef2f5; border-left: 5px solid #ffc107; border-radius: 10px; padding: 15px; position: relative; }
-        .job-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .job-tag { background: #eef2f5; color: #005b96; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: bold; }
-        .job-cost { font-size: 12px; color: #e65100; font-weight: bold; }
-        .job-title { font-size: 16px; color: #333; margin-bottom: 5px; }
-        .job-bairro { font-size: 13px; color: #666; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .job-list { padding: 0 16px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 100px; }
+        .job-card { background: white; border-radius: 16px; padding: 20px; position: relative; transition: all 0.3s; border: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .job-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .job-card.destaque { border: 2px solid var(--gold); box-shadow: 0 8px 25px rgba(255,215,0,0.15); }
+        .job-card.destaque::before { content: '⭐ DESTAQUE'; position: absolute; top: -10px; left: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; padding: 3px 12px; border-radius: 10px; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .job-tag { background: #eff6ff; color: #1e40af; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .job-cost { font-size: 12px; font-weight: 700; color: #e65100; background: #fff7ed; padding: 4px 10px; border-radius: 8px; }
+        .job-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .job-location { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .job-location i { color: var(--danger); }
+        .job-footer { display: flex; gap: 8px; }
+        .btn-job { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
+        .btn-detalhes { background: #f1f5f9; color: var(--text); }
+        .btn-aceitar { background: linear-gradient(135deg, #005b96, #003f6b); color: white; box-shadow: 0 4px 12px rgba(0,91,150,0.3); }
         
-        .btn-aceitar { background-color: #005b96; color: white; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
+        .planos-view { padding: 0 16px 100px; }
+        .plano-card-premium { background: white; border-radius: 20px; padding: 24px; margin-bottom: 16px; border: 2px solid var(--border); transition: all 0.3s; }
+        .plano-card-premium:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+        .plano-card-premium.popular { border-color: var(--gold); background: linear-gradient(135deg, #fffbeb, white); }
+        .plano-card-premium.popular::before { content: '⭐ MAIS ESCOLHIDO'; position: absolute; top: 12px; right: -28px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; padding: 3px 35px; font-size: 8px; font-weight: 800; transform: rotate(45deg); letter-spacing: 1px; }
+        .plano-icon-grande { font-size: 40px; text-align: center; margin-bottom: 12px; }
+        .plano-nome-grande { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 4px; }
+        .plano-preco-grande { font-size: 36px; font-weight: 900; text-align: center; color: #1a1a2e; }
+        .plano-preco-grande small { font-size: 14px; color: var(--text-muted); }
+        .plano-creditos-info { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+        .plano-features-list { margin-bottom: 20px; }
+        .plano-feature-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid #f1f5f9; }
+        .plano-feature-item i { color: var(--success); }
+        .btn-contratar { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; box-shadow: 0 8px 25px rgba(255,215,0,0.4); transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-contratar:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,215,0,0.5); }
         
-        .spacer { height: 30px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-pix-premium { background: white; border-radius: 24px; padding: 28px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        .modal-pix-premium h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+        .modal-pix-premium .pix-valor { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #1a1a2e, #0f3460); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 8px 0; }
+        .qr-container { background: #f8fafc; padding: 20px; border-radius: 16px; margin: 16px 0; border: 2px dashed var(--border); }
+        .qr-simulado { width: 180px; height: 180px; margin: 0 auto; background: repeating-linear-gradient(45deg, #000 0px, #000 8px, #fff 8px, #fff 16px); border-radius: 12px; animation: qrPulse 2s infinite; }
+        @keyframes qrPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(26,26,46,0.3); } 50% { box-shadow: 0 0 0 16px rgba(26,26,46,0); } }
+        .pix-codigo { background: #f1f5f9; padding: 14px; border-radius: 12px; font-size: 10px; word-break: break-all; color: #333; margin: 12px 0; border: 1px solid var(--border); cursor: pointer; }
+        .btn-pix { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer; margin: 6px 0; transition: all 0.3s; }
+        .btn-copiar { background: #1a1a2e; color: var(--gold); }
+        .btn-simular { background: var(--success); color: white; }
+        .btn-cancelar { background: #f1f5f9; color: var(--text-muted); }
+        .spacer { height: 20px; }
     </style>
 </head>
 <body>
@@ -43,48 +116,213 @@
 <div class="app-container">
     
     <div class="header">
-        <div class="header-info">
-            <h1>☀️ Olá, Seu Jorge!</h1>
-            <p>Eletricista Residencial</p>
-        </div>
-        <div class="profile-pic" style="font-size: 30px;">👷‍♂️</div>
-    </div>
-
-    <div class="wallet-card">
-        <p>Seu Saldo Atual</p>
-        <h2>5 <span>Créditos</span></h2>
-        <button class="btn-recarregar" onclick="alert('Abrir tela de pacotes Pix e QR Code')">+ Recarregar</button>
-    </div>
-
-    <h2 class="section-title">Oportunidades Perto de Você:</h2>
-
-    <div class="job-list">
-        
-        <div class="job-card">
-            <div class="job-header">
-                <span class="job-tag">Instalação de Chuveiro</span>
-                <span class="job-cost">Custo: 1 Crédito</span>
+        <div class="header-top">
+            <div class="header-info">
+                <p class="categoria">⚡ Profissional</p>
+                <h1 id="nome-profissional">Seu Jorge</h1>
             </div>
-            <h3 class="job-title">Troca de chuveiro elétrico (1 un)</h3>
-            <div class="job-bairro">📍 Capim Macio, Natal</div>
-            <button class="btn-aceitar" onclick="alert('Abrir chat interno com o cliente')">Ver Detalhes e Aceitar</button>
+            <div class="profile-avatar">👷‍♂️</div>
         </div>
-
-        <div class="job-card" style="border-left-color: #e65100;">
-            <div class="job-header">
-                <span class="job-tag">Serviço Grande</span>
-                <span class="job-cost">Custo: 3 Créditos</span>
-            </div>
-            <h3 class="job-title">Revisão da fiação da cozinha (Queda de energia)</h3>
-            <div class="job-bairro">📍 Ponta Negra, Natal</div>
-            <button class="btn-aceitar" onclick="alert('Abrir chat interno com o cliente')">Ver Detalhes e Aceitar</button>
+        <div class="header-stats">
+            <div class="header-stat"><p>Serviços</p><h3 id="servicos-feitos">12</h3></div>
+            <div class="header-stat"><p>Avaliação</p><h3>⭐ 4.9</h3></div>
+            <div class="header-stat"><p>Plano</p><h3 id="plano-ativo-header">Grátis</h3></div>
         </div>
-
     </div>
 
-    <div class="spacer"></div>
+    <div class="wallet-section">
+        <div class="wallet-card">
+            <div class="wallet-header">
+                <span class="wallet-label">💎 Seu Saldo</span>
+                <span class="wallet-badge" id="plano-badge">Plano Grátis</span>
+            </div>
+            <div class="wallet-balance" id="saldo-profissional">5 <span>Créditos</span></div>
+            <div class="wallet-subtext" id="creditos-restantes">Restam 5 créditos este mês</div>
+            <div class="wallet-actions">
+                <button class="btn-wallet btn-planos" onclick="mudarView('planos')"><i class="fas fa-crown"></i> Ver Planos</button>
+                <button class="btn-wallet btn-recarregar" onclick="mudarView('creditos')"><i class="fas fa-plus-circle"></i> Recarregar</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="nav-menu">
+        <button class="nav-item active" id="nav-servicos" onclick="mudarView('servicos')"><i class="fas fa-briefcase"></i> Serviços</button>
+        <button class="nav-item" id="nav-planos" onclick="mudarView('planos')"><i class="fas fa-crown"></i> Planos</button>
+        <button class="nav-item" id="nav-creditos" onclick="mudarView('creditos')"><i class="fas fa-coins"></i> Créditos</button>
+    </div>
+
+    <div id="view-servicos">
+        <div class="section-header"><span class="section-title">📋 Oportunidades</span><span class="section-badge">3 novas</span></div>
+        <div class="job-list" id="job-list"></div>
+    </div>
+
+    <div id="view-planos" style="display:none;"><div class="planos-view" id="planos-container"></div></div>
+
+    <div id="view-creditos" style="display:none;">
+        <div class="planos-view">
+            <div class="plano-card-premium" style="text-align:center;">
+                <div class="plano-icon-grande">📦</div>
+                <div class="plano-nome-grande">Créditos Avulsos</div>
+                <div class="plano-preco-grande">R$ 12,00 <small>/cada</small></div>
+                <p style="margin:12px 0;color:var(--text-muted);">Compre créditos extras</p>
+                <div style="display:flex;gap:8px;margin:16px 0;">
+                    <button class="btn-wallet btn-recarregar" onclick="abrirPix(10)" style="flex:1;">10<br>R$ 120</button>
+                    <button class="btn-wallet btn-recarregar" onclick="abrirPix(30)" style="flex:1;">30<br>R$ 360</button>
+                </div>
+                <input type="number" id="qtd-livre" value="1" min="1" style="width:100%;padding:14px;border:2px solid var(--border);border-radius:12px;font-size:18px;font-weight:700;text-align:center;margin:12px 0;">
+                <button class="btn-contratar" onclick="abrirPixPersonalizado()"><i class="fas fa-qrcode"></i> Comprar via PIX</button>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="modal-overlay" id="modal-pix-pro">
+    <div class="modal-pix-premium">
+        <h2>💎 Pagamento PIX</h2>
+        <p style="color:var(--text-muted);font-size:13px;" id="pix-descricao">10 Créditos</p>
+        <div class="pix-valor" id="pix-valor-pro">R$ 120,00</div>
+        <div class="qr-container"><div class="qr-simulado"></div><p style="font-size:11px;color:var(--text-muted);margin-top:12px;">📱 Escaneie o QR Code</p></div>
+        <div class="pix-codigo" id="pix-codigo-pro" onclick="copiarPixPro()">00020126360014BR.GOV.BCB.PIX...</div>
+        <button class="btn-pix btn-copiar" onclick="copiarPixPro()"><i class="fas fa-copy"></i> Copiar PIX</button>
+        <button class="btn-pix btn-simular" onclick="simularPagamentoPro()"><i class="fas fa-check-circle"></i> Simular Pagamento</button>
+        <button class="btn-pix btn-cancelar" onclick="fecharPixPro()">Cancelar</button>
+    </div>
+</div>
+
+<script>
+// DADOS
+let profissional = { nome: 'Seu Jorge', categoria: 'Eletricista Residencial', saldo: 5, planoId: null, servicosRealizados: 12, avaliacao: 4.9 };
+
+let planos = JSON.parse(localStorage.getItem('planos')) || [
+    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
+    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
+    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
+    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
+];
+
+let pixDataPro = { qtd: 0, valor: 0, status: 'pendente' };
+
+// INICIALIZAR
+renderServicos();
+atualizarHeader();
+
+function atualizarHeader() {
+    document.getElementById('saldo-profissional').innerHTML = profissional.saldo + ' <span>Créditos</span>';
+    document.getElementById('creditos-restantes').innerText = 'Restam ' + profissional.saldo + ' créditos este mês';
+    const plano = planos.find(p => p.id === profissional.planoId);
+    document.getElementById('plano-ativo-header').innerText = plano ? plano.nome : 'Grátis';
+    document.getElementById('plano-badge').innerText = plano ? 'Plano ' + plano.nome : 'Plano Grátis';
+}
+
+function mudarView(view) {
+    document.getElementById('view-servicos').style.display = view === 'servicos' ? 'block' : 'none';
+    document.getElementById('view-planos').style.display = view === 'planos' ? 'block' : 'none';
+    document.getElementById('view-creditos').style.display = view === 'creditos' ? 'block' : 'none';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('nav-' + view).classList.add('active');
+    if(view === 'planos') renderPlanosProfissional();
+}
+
+function renderServicos() {
+    document.getElementById('job-list').innerHTML = `
+        <div class="job-card destaque">
+            <div class="job-header"><span class="job-tag">Instalação</span><span class="job-cost">🪙 1 Crédito</span></div>
+            <h3 class="job-title">Troca de chuveiro elétrico</h3>
+            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Capim Macio, Natal</div>
+            <div class="job-footer">
+                <button class="btn-job btn-detalhes" onclick="alert('📋 Cliente: Maria Silva\nEndereço: Rua das Flores, 123\nHorário: Amanhã às 14h\nValor: R\$ 80,00')">Detalhes</button>
+                <button class="btn-job btn-aceitar" onclick="aceitarServico()">Aceitar</button>
+            </div>
+        </div>
+        <div class="job-card">
+            <div class="job-header"><span class="job-tag">Emergência</span><span class="job-cost">🪙 2 Créditos</span></div>
+            <h3 class="job-title">Queda de energia na cozinha</h3>
+            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Ponta Negra, Natal</div>
+            <div class="job-footer">
+                <button class="btn-job btn-detalhes" onclick="alert('📋 Cliente: João Santos\nEndereço: Av. Praia, 456\nHorário: Hoje urgente\nValor: R\$ 150,00')">Detalhes</button>
+                <button class="btn-job btn-aceitar" onclick="aceitarServico()">Aceitar</button>
+            </div>
+        </div>
+        <div class="job-card">
+            <div class="job-header"><span class="job-tag">Manutenção</span><span class="job-cost">🪙 1 Crédito</span></div>
+            <h3 class="job-title">Troca de tomadas e interruptores</h3>
+            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Alecrim, Natal</div>
+            <div class="job-footer">
+                <button class="btn-job btn-detalhes" onclick="alert('📋 Cliente: Pedro Costa\nEndereço: Rua Central, 789\nHorário: Sexta às 10h\nValor: R\$ 60,00')">Detalhes</button>
+                <button class="btn-job btn-aceitar" onclick="aceitarServico()">Aceitar</button>
+            </div>
+        </div>`;
+}
+
+function aceitarServico() {
+    if(profissional.saldo <= 0) { alert('⚠️ Créditos insuficientes! Compre créditos ou contrate um plano.'); return; }
+    profissional.saldo--;
+    profissional.servicosRealizados++;
+    document.getElementById('servicos-feitos').innerText = profissional.servicosRealizados;
+    atualizarHeader();
+    alert('✅ Serviço aceito com sucesso!\nEntre em contato com o cliente.');
+}
+
+function renderPlanosProfissional() {
+    const container = document.getElementById('planos-container');
+    container.innerHTML = '';
+    planos.forEach(p => {
+        const isAtual = profissional.planoId === p.id;
+        container.innerHTML += `
+            <div class="plano-card-premium ${p.destaque ? 'popular' : ''}" style="position:relative;overflow:hidden;">
+                <div class="plano-icon-grande"><i class="${p.icone || 'fas fa-box'}"></i></div>
+                <div class="plano-nome-grande">${p.nome}</div>
+                <div class="plano-preco-grande">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
+                <div class="plano-creditos-info">${p.creditos} créditos por mês</div>
+                <div class="plano-features-list">
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações'}</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
+                    ${p.selo ? `<div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
+                </div>
+                ${isAtual ? '<button class="btn-contratar" style="background:#10b981;color:white;" disabled>✅ Plano Atual</button>' : `<button class="btn-contratar" onclick="contratarPlanoPro('${p.id}')"><i class="fas fa-crown"></i> Contratar Plano</button>`}
+            </div>`;
+    });
+}
+
+function contratarPlanoPro(planoId) {
+    const plano = planos.find(p => p.id === planoId);
+    if(!plano) return;
+    if(!confirm(`Contratar Plano ${plano.nome} por R$ ${plano.valor.toFixed(2)}/mês?`)) return;
+    profissional.planoId = planoId;
+    profissional.saldo = plano.creditos;
+    atualizarHeader();
+    mudarView('servicos');
+    alert(`✅ Plano ${plano.nome} contratado com sucesso!\n${plano.creditos} créditos liberados.`);
+}
+
+function abrirPix(qtd) {
+    pixDataPro = { qtd, valor: qtd * 12, status: 'pendente' };
+    document.getElementById('pix-descricao').innerText = qtd + ' Créditos';
+    document.getElementById('pix-valor-pro').innerText = 'R$ ' + (qtd * 12).toFixed(2).replace('.', ',');
+    document.getElementById('pix-codigo-pro').innerText = '00020126360014BR.GOV.BCB.PIX0114+5584' + Date.now().toString().slice(-11) + '5204000053039865405' + (qtd * 12).toFixed(2).replace('.', '') + '5802BR5908AloNatal6014Natal62070503***6304' + Math.random().toString(36).substring(2, 6).toUpperCase();
+    document.getElementById('modal-pix-pro').classList.add('active');
+}
+
+function abrirPixPersonalizado() {
+    const qtd = parseInt(document.getElementById('qtd-livre').value) || 0;
+    if(qtd <= 0) return alert('Digite uma quantidade!');
+    abrirPix(qtd);
+}
+
+function copiarPixPro() {
+    navigator.clipboard.writeText(document.getElementById('pix-codigo-pro').innerText).then(() => alert('✅ PIX copiado!')).catch(() => prompt('Copie:', document.getElementById('pix-codigo-pro').innerText));
+}
+
+function simularPagamentoPro() {
+    profissional.saldo += pixDataPro.qtd;
+    atualizarHeader();
+    fecharPixPro();
+    alert(`✅ Pagamento simulado! ${pixDataPro.qtd} créditos adicionados.`);
+}
+
+function fecharPixPro() { document.getElementById('modal-pix-pro').classList.remove('active'); }
+</script>
 </body>
 </html>
