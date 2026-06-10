@@ -21,6 +21,7 @@
             --text: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --maps: #4285F4;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -70,6 +71,18 @@
         .job-descricao { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
         .job-location { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
         .job-location i { color: var(--danger); }
+        .job-location .btn-maps { 
+            display: inline-flex; align-items: center; gap: 4px; 
+            background: #e8f0fe; color: var(--maps); 
+            padding: 4px 10px; border-radius: 20px; 
+            font-size: 10px; font-weight: 700; 
+            text-decoration: none; 
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+        .job-location .btn-maps:hover { background: #d2e3fc; transform: scale(1.05); }
+        .job-location .btn-maps i { color: var(--maps); font-size: 12px; }
+        
         .job-footer { display: flex; gap: 8px; }
         .btn-job { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
         .btn-detalhes { background: #f1f5f9; color: var(--text); }
@@ -113,7 +126,6 @@
         </div>
     </div>
 
-    <!-- PLANO ATUAL -->
     <div class="plano-atual-mini" id="plano-atual-mini">
         <div class="plano-icon">👑</div>
         <div class="plano-info">
@@ -123,7 +135,6 @@
         <button class="btn-mudar" onclick="mudarView('planos')">Mudar</button>
     </div>
 
-    <!-- NAV MENU -->
     <div class="nav-menu">
         <button class="nav-item active" id="nav-servicos" onclick="mudarView('servicos')">
             <i class="fas fa-briefcase"></i> Serviços
@@ -133,13 +144,11 @@
         </button>
     </div>
 
-    <!-- SERVIÇOS -->
     <div id="view-servicos">
         <div class="section-header"><span class="section-title">📋 Oportunidades</span><span class="section-badge">3 novas</span></div>
         <div class="job-list" id="job-list"></div>
     </div>
 
-    <!-- PLANOS -->
     <div id="view-planos" style="display:none;">
         <div class="planos-view" id="planos-container"></div>
     </div>
@@ -157,7 +166,6 @@ let profissional = {
     avaliacao: 4.9 
 };
 
-// PLANOS COM R$ 10,00 A MAIS E SEM CRÉDITOS NOS CARDS
 let planos = JSON.parse(localStorage.getItem('planos')) || [
     { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
     { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true },
@@ -184,6 +192,7 @@ function mudarView(view) {
     if(view === 'planos') renderPlanosProfissional();
 }
 
+// ==================== SERVIÇOS COM GOOGLE MAPS ====================
 function renderServicos() {
     document.getElementById('job-list').innerHTML = `
         <div class="job-card destaque">
@@ -193,12 +202,18 @@ function renderServicos() {
             </div>
             <h3 class="job-title">Troca de chuveiro elétrico</h3>
             <div class="job-descricao">Cliente precisa trocar chuveiro queimado. Modelo Lorenzetti.</div>
-            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Capim Macio, Natal</div>
+            <div class="job-location">
+                <i class="fas fa-map-marker-alt"></i> Capim Macio, Natal
+                <a href="https://www.google.com/maps?q=-5.8366,-35.2119" target="_blank" class="btn-maps" onclick="event.stopPropagation()">
+                    <i class="fas fa-map-marked-alt"></i> Maps
+                </a>
+            </div>
             <div class="job-footer">
-                <button class="btn-job btn-detalhes" onclick="verDetalhes('Maria Silva', 'Rua das Flores, 123', 'Amanhã às 14h', 'R\\$ 80,00')">📋 Detalhes</button>
+                <button class="btn-job btn-detalhes" onclick="verDetalhes('Maria Silva', 'Rua das Flores, 123 - Capim Macio', 'Amanhã às 14h', 'R\\$ 80,00', '-5.8366,-35.2119')">📋 Detalhes</button>
                 <button class="btn-job btn-aceitar" onclick="aceitarServico()">✅ Aceitar</button>
             </div>
         </div>
+        
         <div class="job-card">
             <div class="job-header">
                 <span class="job-tag">Emergência</span>
@@ -206,12 +221,18 @@ function renderServicos() {
             </div>
             <h3 class="job-title">Queda de energia na cozinha</h3>
             <div class="job-descricao">Cliente relata queda de energia apenas na cozinha. Disjuntor não desarma.</div>
-            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Ponta Negra, Natal</div>
+            <div class="job-location">
+                <i class="fas fa-map-marker-alt"></i> Ponta Negra, Natal
+                <a href="https://www.google.com/maps?q=-5.8827,-35.1758" target="_blank" class="btn-maps" onclick="event.stopPropagation()">
+                    <i class="fas fa-map-marked-alt"></i> Maps
+                </a>
+            </div>
             <div class="job-footer">
-                <button class="btn-job btn-detalhes" onclick="verDetalhes('João Santos', 'Av. Praia, 456', 'Hoje urgente', 'R\\$ 150,00')">📋 Detalhes</button>
+                <button class="btn-job btn-detalhes" onclick="verDetalhes('João Santos', 'Av. Praia, 456 - Ponta Negra', 'Hoje urgente', 'R\\$ 150,00', '-5.8827,-35.1758')">📋 Detalhes</button>
                 <button class="btn-job btn-aceitar" onclick="aceitarServico()">✅ Aceitar</button>
             </div>
         </div>
+        
         <div class="job-card">
             <div class="job-header">
                 <span class="job-tag">Manutenção</span>
@@ -219,16 +240,21 @@ function renderServicos() {
             </div>
             <h3 class="job-title">Troca de tomadas e interruptores</h3>
             <div class="job-descricao">Substituir 4 tomadas e 2 interruptores antigos.</div>
-            <div class="job-location"><i class="fas fa-map-marker-alt"></i> Alecrim, Natal</div>
+            <div class="job-location">
+                <i class="fas fa-map-marker-alt"></i> Alecrim, Natal
+                <a href="https://www.google.com/maps?q=-5.8122,-35.2294" target="_blank" class="btn-maps" onclick="event.stopPropagation()">
+                    <i class="fas fa-map-marked-alt"></i> Maps
+                </a>
+            </div>
             <div class="job-footer">
-                <button class="btn-job btn-detalhes" onclick="verDetalhes('Pedro Costa', 'Rua Central, 789', 'Sexta às 10h', 'R\\$ 60,00')">📋 Detalhes</button>
+                <button class="btn-job btn-detalhes" onclick="verDetalhes('Pedro Costa', 'Rua Central, 789 - Alecrim', 'Sexta às 10h', 'R\\$ 60,00', '-5.8122,-35.2294')">📋 Detalhes</button>
                 <button class="btn-job btn-aceitar" onclick="aceitarServico()">✅ Aceitar</button>
             </div>
         </div>`;
 }
 
-function verDetalhes(cliente, endereco, horario, valor) {
-    alert(`📋 DETALHES DO SERVIÇO\n\n👤 Cliente: ${cliente}\n📍 Endereço: ${endereco}\n🕐 Horário: ${horario}\n💰 Valor sugerido: ${valor}\n\nAo aceitar, você receberá o contato do cliente.`);
+function verDetalhes(cliente, endereco, horario, valor, coordenadas) {
+    alert(`📋 DETALHES DO SERVIÇO\n\n👤 Cliente: ${cliente}\n📍 Endereço: ${endereco}\n🕐 Horário: ${horario}\n💰 Valor sugerido: ${valor}\n\n🗺️ Coordenadas: ${coordenadas}\n\nAo aceitar, você receberá o contato do cliente.`);
 }
 
 function aceitarServico() {
@@ -237,7 +263,6 @@ function aceitarServico() {
     alert('✅ Serviço aceito com sucesso!\n\nEntre em contato com o cliente pelo WhatsApp.');
 }
 
-// ==================== PLANOS (SEM CRÉDITOS) ====================
 function renderPlanosProfissional() {
     const container = document.getElementById('planos-container');
     container.innerHTML = '';
