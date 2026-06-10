@@ -39,13 +39,11 @@
         .header-stat p { font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
         .header-stat h3 { font-size: 20px; font-weight: 800; color: var(--gold); }
         
-        /* NAV MENU */
         .nav-menu { display: flex; gap: 4px; margin: 20px 16px; background: white; border-radius: 16px; padding: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .nav-item { flex: 1; padding: 12px 8px; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; font-size: 10px; font-weight: 600; color: var(--text-muted); border: none; background: transparent; }
         .nav-item i { font-size: 16px; display: block; margin-bottom: 4px; }
         .nav-item.active { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--gold); box-shadow: 0 4px 12px rgba(26,26,46,0.3); }
         
-        /* PLANO ATUAL CARD */
         .plano-atual-mini { margin: 0 16px 16px; background: white; border-radius: 16px; padding: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 12px; border: 2px solid var(--gold); }
         .plano-atual-mini .plano-icon { font-size: 30px; }
         .plano-atual-mini .plano-info { flex: 1; }
@@ -57,7 +55,6 @@
         .section-title { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
         .section-badge { background: var(--danger); color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
         
-        /* JOB CARDS */
         .job-list { padding: 0 16px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 100px; }
         .job-card { background: white; border-radius: 16px; padding: 20px; position: relative; transition: all 0.3s; border: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
         .job-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
@@ -79,7 +76,6 @@
         .btn-aceitar { background: linear-gradient(135deg, #005b96, #003f6b); color: white; box-shadow: 0 4px 12px rgba(0,91,150,0.3); }
         .btn-aceitar:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,91,150,0.4); }
         
-        /* PLANOS VIEW */
         .planos-view { padding: 0 16px 100px; }
         .plano-card-premium { background: white; border-radius: 20px; padding: 24px; margin-bottom: 16px; position: relative; transition: all 0.3s; border: 2px solid var(--border); overflow: hidden; }
         .plano-card-premium:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
@@ -89,8 +85,7 @@
         .plano-nome-grande { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 4px; }
         .plano-preco-grande { font-size: 36px; font-weight: 900; text-align: center; color: #1a1a2e; }
         .plano-preco-grande small { font-size: 14px; color: var(--text-muted); }
-        .plano-creditos-info { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
-        .plano-features-list { margin-bottom: 20px; }
+        .plano-features-list { margin: 20px 0; }
         .plano-feature-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid #f1f5f9; }
         .plano-feature-item i { color: var(--success); }
         .btn-contratar { width: 100%; padding: 16px; border: none; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; box-shadow: 0 8px 25px rgba(255,215,0,0.4); transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
@@ -123,7 +118,7 @@
         <div class="plano-icon">👑</div>
         <div class="plano-info">
             <h4 id="plano-atual-nome">Plano Grátis</h4>
-            <p id="plano-atual-desc">2 créditos iniciais</p>
+            <p id="plano-atual-desc">Acesso básico</p>
         </div>
         <button class="btn-mudar" onclick="mudarView('planos')">Mudar</button>
     </div>
@@ -162,11 +157,12 @@ let profissional = {
     avaliacao: 4.9 
 };
 
+// PLANOS COM R$ 10,00 A MAIS E SEM CRÉDITOS NOS CARDS
 let planos = JSON.parse(localStorage.getItem('planos')) || [
-    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
-    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true },
-    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false },
-    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false }
+    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
+    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true },
+    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 59.90, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false },
+    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false }
 ];
 
 // INICIALIZAR
@@ -177,7 +173,7 @@ function atualizarPlanoInfo() {
     const plano = planos.find(p => p.id === profissional.planoId);
     document.getElementById('plano-ativo-header').innerText = plano ? plano.nome : 'Grátis';
     document.getElementById('plano-atual-nome').innerText = plano ? 'Plano ' + plano.nome : 'Plano Grátis';
-    document.getElementById('plano-atual-desc').innerText = plano ? plano.creditos + ' créditos/mês' : '2 créditos iniciais';
+    document.getElementById('plano-atual-desc').innerText = plano ? 'Até ' + plano.limiteSolicitacoes + ' solicitações/mês' : 'Acesso básico';
 }
 
 function mudarView(view) {
@@ -203,7 +199,6 @@ function renderServicos() {
                 <button class="btn-job btn-aceitar" onclick="aceitarServico()">✅ Aceitar</button>
             </div>
         </div>
-        
         <div class="job-card">
             <div class="job-header">
                 <span class="job-tag">Emergência</span>
@@ -217,7 +212,6 @@ function renderServicos() {
                 <button class="btn-job btn-aceitar" onclick="aceitarServico()">✅ Aceitar</button>
             </div>
         </div>
-        
         <div class="job-card">
             <div class="job-header">
                 <span class="job-tag">Manutenção</span>
@@ -243,6 +237,7 @@ function aceitarServico() {
     alert('✅ Serviço aceito com sucesso!\n\nEntre em contato com o cliente pelo WhatsApp.');
 }
 
+// ==================== PLANOS (SEM CRÉDITOS) ====================
 function renderPlanosProfissional() {
     const container = document.getElementById('planos-container');
     container.innerHTML = '';
@@ -253,12 +248,10 @@ function renderPlanosProfissional() {
                 <div class="plano-icon-grande"><i class="${p.icone || 'fas fa-box'}"></i></div>
                 <div class="plano-nome-grande">${p.nome}</div>
                 <div class="plano-preco-grande">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
-                <div class="plano-creditos-info">${p.creditos} créditos por mês</div>
                 <div class="plano-features-list">
-                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div>
-                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações'}</div>
-                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
-                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite de' : 'Até ' + p.limiteSolicitacoes + ' solicitações por mês'}</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias disponíveis' : p.categorias + ' categoria(s)'}</div>
+                    <div class="plano-feature-item"><i class="fas fa-check-circle"></i> Prioridade de ${p.prioridade}% nas buscas</div>
                     ${p.selo ? `<div class="plano-feature-item"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
                 </div>
                 ${isAtual ? 
