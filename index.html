@@ -194,10 +194,10 @@
 let profissional = { nome: 'Seu Jorge', categoria: 'Eletricista Residencial', saldo: 5, planoId: null, servicosRealizados: 12, avaliacao: 4.9 };
 
 let planos = JSON.parse(localStorage.getItem('planos')) || [
-    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
-    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
-    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
-    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
+    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, categorias: 1, prioridade: 80, selo: '', cor: 'start', destaque: false, comissao: 2 },
+    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, categorias: 1, prioridade: 85, selo: '', cor: 'pro', destaque: true, comissao: 3 },
+    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 59.90, categorias: 2, prioridade: 90, selo: '', cor: 'premium', destaque: false, comissao: 4 },
+    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
 ];
 
 let pixDataPro = { qtd: 0, valor: 0, status: 'pendente' };
